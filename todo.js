@@ -27,7 +27,6 @@ function paintToDo(text) {
   const span = document.createElement("span");
   const delBtn = document.createElement("button");
   const li = document.createElement("li");
-  // newId = toDosArray.length + 1;
   const newId = idNumber;
   idNumber++;
   
@@ -54,18 +53,17 @@ function deleteToDo(event) {
   // HTML DELETE
   const btn = event.target;
   const li = btn.parentNode;
-  
+  //li 전체 삭제
   while(toDoList.firstChild) {
     toDoList.removeChild(toDoList.firstChild);
   }
-  idNumber = 1;
 
   //LOCALSTORAGE DELETE
   const cleanToDos = toDosArray.filter(function(toDo) {
     return toDo.id !== parseInt(li.id);
   });
-  
-  
+  //li 다시 paint
+  idNumber = 1;
   cleanToDos.forEach(function(toDo) {
     toDo.id = idNumber;
     paintToDo(toDo.text);
@@ -73,11 +71,6 @@ function deleteToDo(event) {
 
   toDosArray = cleanToDos;
   saveToDos();
-  
-
-
-  
-  
 }
 
 function handleSubmit(event) {
@@ -86,8 +79,6 @@ function handleSubmit(event) {
   paintToDo(currentValue);
   toDoInput.value = "";
 }
-
-
 
 function init() {
   loadToDos();
